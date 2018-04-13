@@ -4,27 +4,37 @@ var playerY = 400;
 // Start in Random position every time game starts.
 var playerX = startPosition[Math.floor(Math.random()*startPosition.length)];
 var allEnemies = [];
+var enemyX, enemyY;
 
+function enemyStartPositions() {
+	const enemyStartX = [-200, -100, -150, -40, -50, -15, -35];
+	const enemyStartY = [59, 149, 230];
+	enemyX = enemyStartX[Math.floor(Math.random()*enemyStartX.length)];
+	enemyY = enemyStartY[Math.floor(Math.random()*enemyStartY.length)];
+}
 
 var Enemy = function () {
 	// Variables applied to each of our instances go here,
 	// we've provided one for you to get started
-
+	enemyStartPositions();
 	// The image/sprite for our enemies, this uses
 	// a helper we've provided to easily load images
 	this.sprite = 'images/enemy-bug.png';
+	this.speed = Math.floor(Math.random()*100) + 40 ;
+	this.enemyPosX = enemyX;
+	this.enemyPosY = enemyY;
 };
+
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function (dt) {
-	// You should multiply any movement by the dt parameter
-	// which will ensure the game runs at the same speed for
-	// all computers.
+	this.enemyPosX += this.speed * dt;
+	
 };
 
 Enemy.prototype.render = function () {
-	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+	ctx.drawImage(Resources.get(this.sprite), this.enemyPosX, this.enemyPosY);
 };
 
 var Player = function () {
@@ -58,8 +68,15 @@ Player.prototype.handleInput = function (key) {
 
 
 var player = new Player;
-var enemy = new Enemy;
+var firstEnemy = new Enemy;
+var secondEnemy = new Enemy;
+var thirdEnemy = new Enemy;
 
+allEnemies.push(firstEnemy);
+allEnemies.push(secondEnemy);
+allEnemies.push(thirdEnemy);
+
+console.log(allEnemies);
 
 
 // This listens for key presses and sends the keys to your
