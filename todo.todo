@@ -1,0 +1,7 @@
+Game it self:
+☐ Make enemies out of code and generate more when they pass the screen @critical .
+
+around the game:
+☐ create a timer.@high 
+☐ create a score. @high 
+☐ create lives. @low 

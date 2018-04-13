@@ -1,36 +1,40 @@
-// Enemies our player must avoid
-var startPosition = [0, 100, 200, 300, 400];
-var playerY = 400;
-// Start in Random position every time game starts.
-var playerX = startPosition[Math.floor(Math.random()*startPosition.length)];
 var allEnemies = [];
-var enemyX, enemyY;
+var speedFactor;
+var playerScore = 0;
 
-function enemyStartPositions() {
-	const enemyStartX = [-200, -100, -150, -40, -50, -15, -35];
-	const enemyStartY = [59, 149, 230];
-	enemyX = enemyStartX[Math.floor(Math.random()*enemyStartX.length)];
-	enemyY = enemyStartY[Math.floor(Math.random()*enemyStartY.length)];
+function randomChoice(arr) {
+	return arr[Math.floor(Math.random() * arr.length)];
 }
 
+var Gem = function() {
+	this.sprite = 'images/' + randomChoice(['Gem-Blue', 'Gem-Orange', 'Gem-Green']) + '.png';
+	this.gemX = randomChoice([0, 100, 200, 300, 400]);
+	this.gemY = randomChoice([59, 149, 230]);
+};
+
+Gem.prototype.update = function () {
+
+};
+
+Gem.prototype.render = function () {
+	ctx.drawImage(Resources.get(this.sprite), this.gemX + 15 , this.gemY + 35 , 75, 120);
+};
+
 var Enemy = function () {
-	// Variables applied to each of our instances go here,
-	// we've provided one for you to get started
-	enemyStartPositions();
-	// The image/sprite for our enemies, this uses
-	// a helper we've provided to easily load images
 	this.sprite = 'images/enemy-bug.png';
-	this.speed = Math.floor(Math.random()*100) + 40 ;
-	this.enemyPosX = enemyX;
-	this.enemyPosY = enemyY;
+	this.speed = Math.floor(Math.random() * 100) + 50;
+	this.enemyPosX = randomChoice([-100, -150, -40, -50, -15, -35]);
+	this.enemyPosY = randomChoice([59, 149, 230]);
 };
 
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function (dt) {
-	this.enemyPosX += this.speed * dt;
-	
+	if (this.enemyPosX < 490) {
+		this.enemyPosX += this.speed * dt;
+	} else {
+		this.enemyPosX = randomChoice([-100, -150, -40, -50, -15, -35]);
+		this.enemyPosY = randomChoice([59, 149, 230]);
+	}
 };
 
 Enemy.prototype.render = function () {
@@ -39,10 +43,12 @@ Enemy.prototype.render = function () {
 
 var Player = function () {
 	this.sprite = 'images/char-boy.png';
+	this.playerY = 400;
+	this.playerX = randomChoice([0, 100, 200, 300, 400]);
 };
 
 Player.prototype.render = function () {
-	ctx.drawImage(Resources.get(this.sprite), playerX, playerY);
+	ctx.drawImage(Resources.get(this.sprite), this.playerX, this.playerY);
 };
 
 Player.prototype.update = function () {
@@ -52,22 +58,23 @@ Player.prototype.update = function () {
 Player.prototype.handleInput = function (key) {
 	switch (key) {
 	case 'up':
-		if (playerY > -15) playerY -= 83;
+		if (this.playerY > -15) this.playerY -= 83;
 		break;
 	case 'down':
-		if (playerY < 400) playerY += 83;
+		if (this.playerY < 400) this.playerY += 83;
 		break;
 	case 'right':
-		if (playerX < 400) playerX += 100;
+		if (this.playerX < 400) this.playerX += 100;
 		break;
 	case 'left':
-		if (playerX > 0) playerX -= 100;
+		if (this.playerX > 0) this.playerX -= 100;
 		break;
 	}
 };
 
 
 var player = new Player;
+var gem = new Gem;
 var firstEnemy = new Enemy;
 var secondEnemy = new Enemy;
 var thirdEnemy = new Enemy;
