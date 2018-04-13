@@ -1,67 +1,66 @@
-var x = 400;
-var y = 400;
-var playerX = 200;
-var playerY = 200;
-var gameWon = false;
+// Enemies our player must avoid
+var startPosition = [0, 100, 200, 300, 400];
+var playerY = 400;
+// Start in Random position every time game starts.
+var playerX = startPosition[Math.floor(Math.random()*startPosition.length)];
 var allEnemies = [];
 
-class Enemy {
-	constructor() {
-		// Variables applied to each of our instances go here,
-		// we've provided one for you to get started
-		// The image/sprite for our enemies, this uses
-		// a helper we've provided to easily load images
-		this.sprite = 'images/enemy-bug.png';
-		this.x = x;
-		this.y = y;
+
+var Enemy = function () {
+	// Variables applied to each of our instances go here,
+	// we've provided one for you to get started
+
+	// The image/sprite for our enemies, this uses
+	// a helper we've provided to easily load images
+	this.sprite = 'images/enemy-bug.png';
+};
+
+// Update the enemy's position, required method for game
+// Parameter: dt, a time delta between ticks
+Enemy.prototype.update = function (dt) {
+	// You should multiply any movement by the dt parameter
+	// which will ensure the game runs at the same speed for
+	// all computers.
+};
+
+Enemy.prototype.render = function () {
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+var Player = function () {
+	this.sprite = 'images/char-boy.png';
+};
+
+Player.prototype.render = function () {
+	ctx.drawImage(Resources.get(this.sprite), playerX, playerY);
+};
+
+Player.prototype.update = function () {
+
+};
+
+Player.prototype.handleInput = function (key) {
+	switch (key) {
+	case 'up':
+		if (playerY > -15) playerY -= 83;
+		break;
+	case 'down':
+		if (playerY < 400) playerY += 83;
+		break;
+	case 'right':
+		if (playerX < 400) playerX += 100;
+		break;
+	case 'left':
+		if (playerX > 0) playerX -= 100;
+		break;
 	}
-	// Update the enemy's position, required method for game
-	// Parameter: dt, a time delta between ticks
-	update(dt) {
-		// You should multiply any movement by the dt parameter
-		// which will ensure the game runs at the same speed for
-		// all computers.
-	}
-	// Draw the enemy on the screen, required method for game
-	render() {
-		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-	}
-}
+};
 
 
-class Player {
-	constructor() {
-		this.sprite = 'images/char-boy.png';
-		this.playerX = playerX;
-		this.playerY = playerY;
-	}
+var player = new Player;
+var enemy = new Enemy;
 
-	update() {}
 
-	render() {
-		ctx.drawImage(Resources.get(this.sprite), this.playerX, this.playerY);
-	}
-
-	handleInput(key) {
-		switch (key) {
-		case 'up':
-			// doSomething
-			break;
-		case 'down':
-			// doSomething
-			break;
-		case 'right':
-			// doSomething
-			break;
-		case 'left':
-			// doSomething
-			break;
-		}
-	}
-}
-
-var eme = new Enemy();
-var player = new Player();
 
 // This listens for key presses and sends the keys to your
 document.addEventListener('keyup', function (e) {
@@ -71,5 +70,6 @@ document.addEventListener('keyup', function (e) {
 		39: 'right',
 		40: 'down'
 	};
+
 	player.handleInput(allowedKeys[e.keyCode]);
 });
