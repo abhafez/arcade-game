@@ -3,7 +3,6 @@ var speedFactor;
 var playerScore = 0;
 var lifes = 3;
 var gemCollected = false;
-var gemPosition, gemXposition;
 
 function randomChoice(arr) {
 	return arr[Math.floor(Math.random() * arr.length)];
@@ -26,6 +25,12 @@ Gem.prototype.update = function () {
 		this.get();
 		this.sprite = 'images/' + randomChoice(['Gem-Blue', 'Gem-Orange', 'Gem-Green']) + '.png';
 		gemCollected = false;
+	}
+
+	if (gem.get()[0] === player.get()[0] &&
+		(player.get()[1] - gem.get()[1]) < 15 &&
+		(player.get()[1] - gem.get()[1]) > 0) {
+		gem = new Gem();
 	}
 };
 
@@ -113,9 +118,7 @@ function checkCollect() {
 		(player.get()[1] - gem.get()[1]) > 0) {
 		playerScore += 1;
 		console.log("collect");
-	gemPosition = gem.get()[1];
-	gemXposition = gem.get()[0];
-	gemCollected = true;
+		gemCollected = true;
 	}
 }
 // This listens for key presses and sends the keys to your
