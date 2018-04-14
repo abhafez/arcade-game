@@ -1,5 +1,6 @@
 Game it self:
-☐ Make enemies out of code and generate more when they pass the screen @critical .
+✔ Make enemies out of code and generate more when they pass the screen @critical . @done (2018-4-14 18:33:19)
+☐ make collision happen
 
 around the game:
 ☐ create a timer.@high 
