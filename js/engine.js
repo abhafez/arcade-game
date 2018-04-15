@@ -92,6 +92,12 @@ var Engine = (function (global) {
 	function updateEntities(dt) {
 		allEnemies.forEach(function (enemy) {
 			enemy.update(dt);
+			if (enemy.get()[0] - player.get()[0] < 50 &&
+				enemy.get()[0] - player.get()[0] > -50 &&
+				(player.get()[1] - enemy.get()[1]) < 50 &&
+				(player.get()[1] - enemy.get()[1]) > -50) {
+					isHurt = true;
+			}
 		});
 		gem.update();
 		player.update();

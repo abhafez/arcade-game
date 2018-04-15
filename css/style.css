@@ -1,3 +1,9 @@
 body {
     text-align: center;
 }
+
+.timer {
+    font-weight: bold;
+    font-size: 2em;
+    border: 2px solid green;
+}

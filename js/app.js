@@ -3,6 +3,8 @@ var speedFactor;
 var playerScore = 0;
 var lifes = 3;
 var gemCollected = false;
+// isHurt variable for player touches an enemy .. it changes in engine.js file. line 99
+var isHurt = false;
 
 function randomChoice(arr) {
 	return arr[Math.floor(Math.random() * arr.length)];
@@ -75,7 +77,13 @@ Player.prototype.render = function () {
 };
 
 Player.prototype.update = function () {
-
+	if (isHurt === true) {
+		this.playerY = 400;
+		this.playerX = randomChoice([0, 100, 200, 300, 400]);
+		lifes -= 1;
+		isHurt = false;
+		checkGameOver();
+	}
 };
 
 Player.prototype.get = function () {
@@ -117,10 +125,10 @@ function checkCollect() {
 		(player.get()[1] - gem.get()[1]) < 15 &&
 		(player.get()[1] - gem.get()[1]) > 0) {
 		playerScore += 1;
-		console.log("collect");
 		gemCollected = true;
 	}
 }
+
 // This listens for key presses and sends the keys to your
 document.addEventListener('keyup', function (e) {
 	var allowedKeys = {
@@ -132,3 +140,43 @@ document.addEventListener('keyup', function (e) {
 
 	player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+/*count down timer 3:00 minutes */
+// change next line if you want to change time
+document.getElementById('timer').innerHTML = '03' + ':' + '00';
+
+function countDown() {
+	var presentTime = document.getElementById('timer').innerHTML;
+	var timeArray = presentTime.split(/[:]+/);
+	var minutes = timeArray[0];
+	var seconds = secondsCheck((timeArray[1] - 1));
+	if (seconds == 59) {
+		minutes = minutes - 1;
+	}
+	if (minutes < 0) displayGameOver();
+
+	document.getElementById('timer').innerHTML =
+		'0' + minutes + ':' + seconds;
+	setTimeout(countDown, 1000);
+}
+
+function secondsCheck(sec) {
+	if (sec < 10 && sec >= 0) {
+		sec = '0' + sec;
+	}
+	if (sec < 0) {
+		sec = '59';
+	}
+	return sec;
+}
+
+function checkGameOver() {
+	if (lifes === 0) {
+		displayGameOver();
+	}
+}
+
+function displayGameOver() {
+	//dosomething
+}
