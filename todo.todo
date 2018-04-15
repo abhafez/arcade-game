@@ -1,8 +1,8 @@
 Game it self:
 ✔ Make enemies out of code and generate more when they pass the screen @critical . @done (2018-4-14 18:33:19)
-☐ make collision happen
+✔ make collision happen @done (2018-4-15 20:01:14)
 
 around the game:
-☐ create a timer.@high 
-☐ create a score. @high 
-☐ create lives. @low 
+✔ create a timer.@high @done (2018-4-15 20:01:17)
+✔ create a score. @high @done (2018-4-15 20:01:18)
+✔ create lives. @low @done (2018-4-15 20:01:19)

@@ -1,14 +1,26 @@
 var allEnemies = [];
 var speedFactor;
-var playerScore = 0;
-var lifes = 3;
+var gemsCollected = 0;
 var gemCollected = false;
+var lives = 3;
 // isHurt variable for player touches an enemy .. it changes in engine.js file. line 99
 var isHurt = false;
+var character = 'images/char-boy.png';
+const allCharacters = {
+	'boy': 'char-boy',
+	'cat-girl': 'char-cat-girl',
+	'horn-girl': 'char-horn-girl',
+	'pink-girl': 'char-pink-girl',
+	'princess-girl': 'char-princess-girl'
+};
+
 
 function randomChoice(arr) {
 	return arr[Math.floor(Math.random() * arr.length)];
 }
+
+document.getElementById("lives").innerHTML = lives;
+document.getElementById("gems").innerHTML = gemsCollected;
 
 var Gem = function () {
 	this.sprite = 'images/' + randomChoice(['Gem-Blue', 'Gem-Orange', 'Gem-Green']) + '.png';
@@ -42,7 +54,7 @@ Gem.prototype.render = function () {
 
 var Enemy = function () {
 	this.sprite = 'images/enemy-bug.png';
-	this.speed = Math.floor(Math.random() * 100) + 50;
+	this.speed = Math.floor(Math.random() * 100) + 150;
 	this.enemyPosX = randomChoice([-100, -150, -40, -50, -15, -35]);
 	this.enemyPosY = randomChoice([59, 149, 230]);
 };
@@ -67,7 +79,7 @@ Enemy.prototype.render = function () {
 };
 
 var Player = function () {
-	this.sprite = 'images/char-boy.png';
+	this.sprite = character;
 	this.playerY = 400;
 	this.playerX = randomChoice([0, 100, 200, 300, 400]);
 };
@@ -80,7 +92,8 @@ Player.prototype.update = function () {
 	if (isHurt === true) {
 		this.playerY = 400;
 		this.playerX = randomChoice([0, 100, 200, 300, 400]);
-		lifes -= 1;
+		lives -= 1;
+		document.getElementById("lives").innerHTML = lives;
 		isHurt = false;
 		checkGameOver();
 	}
@@ -124,7 +137,8 @@ function checkCollect() {
 	if (gem.get()[0] === player.get()[0] &&
 		(player.get()[1] - gem.get()[1]) < 15 &&
 		(player.get()[1] - gem.get()[1]) > 0) {
-		playerScore += 1;
+		gemsCollected += 1;
+		document.getElementById("gems").innerHTML = gemsCollected;
 		gemCollected = true;
 	}
 }
@@ -171,8 +185,11 @@ function secondsCheck(sec) {
 	return sec;
 }
 
+
 function checkGameOver() {
-	if (lifes === 0) {
+	// No need to check timer.
+	//timer execute displayGameOver() when it's zero
+	if (lives === 0) {
 		displayGameOver();
 	}
 }

@@ -1,15 +1,76 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
+    <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-      <div class="timer">Time left = <span id="timer"></span></div>
 
+<body>
+    <div id="simpleModal" class="modal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <h2>Choose your character</h2>
+            <ul id="characterList">
+                <li class="character">
+                    <img src="images/char-cat-girl.png" id="cat-girl" alt="car girl" class="avatar">
+                </li>
+                <li class="character">
+                    <img src="images/char-horn-girl.png" id="horn-girl" alt="horn girl" class="avatar">
+                </li>
+                <li class="character">
+                    <img src="images/char-boy.png"  id="boy" alt="boy" class="avatar">
+                </li>
+                <li class="character">
+                    <img src="images/char-pink-girl.png" id="pink-girl" alt="pink girl" class="avatar">
+                </li>
+                <li class="character">
+                    <img src="images/char-princess-girl.png" id="princess-girl" alt="princess girl" class="avatar">
+                </li>
+            </ul>
+            <button class="btn" id="first-start">Start game</button>
+            	<h3>How to play ?</h3>
+            <div class="description">
+            	<p>Just use your keyboard arrows</p>
+            <img src="images/keyboard-arrows.png" alt="<^>" width="250px">
+            </div>
+            <div class="description">
+            	<p>move your character to the blue area to score</p>
+                <p>you need to score 10 points to win</p>
+            <img src="images/water-block.png" alt="water block">
+            </div>
+            <div class="description">
+            	<p>Beware of enemies</p>
+                <p>You have onnly <span class="em">3</span> minutes</p>
+            <img src="images/enemy-bug-red.png" alt="Enemy bug">
+            </div>
+            <div class="description">
+            	<p>Collect gems as much as you can </p>
+            <img src="images/Gem-Blue.png" alt="Gem">
+            </div>
+        </div>
+    </div>
+    <!-- <button id="modalBtn" class="button">Start New Game</button> -->
+
+    <div class="stat">Time left =
+        <span id="timer"></span>
+    </div>
+    <div class="stats">
+        <div class="stat">Socre:
+            <span id="score">0</span>/10</div>
+        <div class="stat">Gems:
+            <span id="gems">0</span>
+        </div>
+        <div class="stat">Lives:
+            <span id="lives"></span>
+        </div>
+    </div>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
+    <script src="js/modal.js"></script>
 </body>
+
 </html>
