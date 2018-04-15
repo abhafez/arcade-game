@@ -5,32 +5,31 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="simpleModal" class="modal">
+    <div class="modal" id="simpleModal">
         <div class="modal-content">
-            <span class="closeBtn">&times;</span>
             <h2>Choose your character</h2>
             <ul id="characterList">
                 <li class="character">
-                    <img src="images/char-cat-girl.png" id="cat-girl" alt="car girl" class="avatar">
+                    <img class="avatar" id="char-cat-girl" src="images/char-cat-girl.png" alt="car girl">
                 </li>
                 <li class="character">
-                    <img src="images/char-horn-girl.png" id="horn-girl" alt="horn girl" class="avatar">
+                    <img class="avatar" id="char-horn-girl" src="images/char-horn-girl.png" alt="horn girl">
                 </li>
                 <li class="character">
-                    <img src="images/char-boy.png"  id="boy" alt="boy" class="avatar">
+                    <img class="avatar" id="char-boy" src="images/char-boy.png" alt="boy">
                 </li>
                 <li class="character">
-                    <img src="images/char-pink-girl.png" id="pink-girl" alt="pink girl" class="avatar">
+                    <img class="avatar" id="char-pink-girl" src="images/char-pink-girl.png" alt="pink girl">
                 </li>
                 <li class="character">
-                    <img src="images/char-princess-girl.png" id="princess-girl" alt="princess girl" class="avatar">
+                    <img class="avatar" id="char-princess-girl" src="images/char-princess-girl.png" alt="princess girl">
                 </li>
             </ul>
-            <button class="btn" id="first-start">Start game</button>
+            <button class="btn" id="first-start" onclick="startGame();">Start game</button>
             	<h3>How to play ?</h3>
             <div class="description">
             	<p>Just use your keyboard arrows</p>

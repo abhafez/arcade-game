@@ -1,26 +1,19 @@
 var allEnemies = [];
-var speedFactor;
 var gemsCollected = 0;
 var gemCollected = false;
 var lives = 3;
+var score = 0;
 // isHurt variable for player touches an enemy .. it changes in engine.js file. line 99
 var isHurt = false;
-var character = 'images/char-boy.png';
-const allCharacters = {
-	'boy': 'char-boy',
-	'cat-girl': 'char-cat-girl',
-	'horn-girl': 'char-horn-girl',
-	'pink-girl': 'char-pink-girl',
-	'princess-girl': 'char-princess-girl'
-};
+var startCharacter = 'images/char-boy.png';
 
 
 function randomChoice(arr) {
 	return arr[Math.floor(Math.random() * arr.length)];
 }
 
-document.getElementById("lives").innerHTML = lives;
-document.getElementById("gems").innerHTML = gemsCollected;
+document.getElementById('lives').innerHTML = lives;
+document.getElementById('gems').innerHTML = gemsCollected;
 
 var Gem = function () {
 	this.sprite = 'images/' + randomChoice(['Gem-Blue', 'Gem-Orange', 'Gem-Green']) + '.png';
@@ -53,7 +46,9 @@ Gem.prototype.render = function () {
 };
 
 var Enemy = function () {
-	this.sprite = 'images/enemy-bug.png';
+	this.sprite = 'images/' +
+		randomChoice(['enemy-bug-red', 'enemy-bug-blue', 'enemy-bug-green']) +
+		'.png';
 	this.speed = Math.floor(Math.random() * 100) + 150;
 	this.enemyPosX = randomChoice([-100, -150, -40, -50, -15, -35]);
 	this.enemyPosY = randomChoice([59, 149, 230]);
@@ -79,7 +74,7 @@ Enemy.prototype.render = function () {
 };
 
 var Player = function () {
-	this.sprite = character;
+	this.sprite = startCharacter;
 	this.playerY = 400;
 	this.playerX = randomChoice([0, 100, 200, 300, 400]);
 };
@@ -93,14 +88,25 @@ Player.prototype.update = function () {
 		this.playerY = 400;
 		this.playerX = randomChoice([0, 100, 200, 300, 400]);
 		lives -= 1;
-		document.getElementById("lives").innerHTML = lives;
+		document.getElementById('lives').innerHTML = lives;
 		isHurt = false;
 		checkGameOver();
+	}
+	if (this.playerY === -15) {
+		score += 1;
+		document.getElementById('score').innerHTML = score;
+		checkWin();
+		this.playerY = 400;
+		this.playerX = randomChoice([0, 100, 200, 300, 400]);
 	}
 };
 
 Player.prototype.get = function () {
 	return [this.playerX, this.playerY];
+};
+
+Player.prototype.updateCharacter = function () {
+	this.sprite = startCharacter;
 };
 
 Player.prototype.handleInput = function (key) {
@@ -138,27 +144,17 @@ function checkCollect() {
 		(player.get()[1] - gem.get()[1]) < 15 &&
 		(player.get()[1] - gem.get()[1]) > 0) {
 		gemsCollected += 1;
-		document.getElementById("gems").innerHTML = gemsCollected;
+		document.getElementById('gems').innerHTML = gemsCollected;
 		gemCollected = true;
 	}
 }
 
 // This listens for key presses and sends the keys to your
-document.addEventListener('keyup', function (e) {
-	var allowedKeys = {
-		37: 'left',
-		38: 'up',
-		39: 'right',
-		40: 'down'
-	};
 
-	player.handleInput(allowedKeys[e.keyCode]);
-});
 
 
 /*count down timer 3:00 minutes */
 // change next line if you want to change time
-document.getElementById('timer').innerHTML = '03' + ':' + '00';
 
 function countDown() {
 	var presentTime = document.getElementById('timer').innerHTML;
@@ -171,7 +167,7 @@ function countDown() {
 	if (minutes < 0) displayGameOver();
 
 	document.getElementById('timer').innerHTML =
-		'0' + minutes + ':' + seconds;
+		minutes + ':' + seconds;
 	setTimeout(countDown, 1000);
 }
 
@@ -196,4 +192,32 @@ function checkGameOver() {
 
 function displayGameOver() {
 	//dosomething
+}
+
+function displayGameWinner(){
+	//dosomething
+}
+
+function startGame() {
+	lives = 3;
+	gemsCollected = 0;
+	score = 0;
+	player.updateCharacter();
+	closeModal();
+	document.getElementById('timer').innerHTML = '03' + ':' + '00';
+	countDown();
+	document.addEventListener('keyup', function (e) {
+		var allowedKeys = {
+			37: 'left',
+			38: 'up',
+			39: 'right',
+			40: 'down'
+		};
+
+		player.handleInput(allowedKeys[e.keyCode]);
+	});
+}
+
+function checkWin() {
+	if (score === 10) displayGameWinner();
 }

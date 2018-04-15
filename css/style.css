@@ -3,8 +3,16 @@ body {
     text-align: center;
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 li {
     display: inline;
+    margin: 2px;
 }
 
 h4 {
@@ -24,6 +32,10 @@ p {
 
 .em {
     font-size: 2em;
+}
+
+.selected {
+    border: 2px cadetblue dashed;
 }
 
 .description {
@@ -61,18 +73,6 @@ p {
   box-shadow: 0 5px 8px 0px rgba(0, 0, 0, 0.2), 0 7px 20px 0px rgba(0, 0, 0, 0.17);
   animation-name: modalopen;
   animation-duration: 1s;
-}
-
-.closeBtn {
-  color: #ccc;
-  float: right;
-  font-size: 30px;
-}
-
-.closeBtn:hover, .closeBtn:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 @keyframes 

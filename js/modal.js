@@ -3,7 +3,20 @@ var modal = document.getElementById('simpleModal');
 window.onload = openModal();
 // Get open modal button
 // var modalBtn = document.getElementById('modalBtn'); //deleteMe:
-document.querySelectorAll('.character');
+var character = document.querySelectorAll('.character');
+
+character.forEach(char => {
+    char.addEventListener('click', select, false);
+});
+
+function select(target) {
+    character.forEach(char => {
+        char.childNodes[1].classList = 'character';
+    });
+    target.target.classList = 'character selected';
+    startCharacter = 'images/' + target.target.id + '.png';
+    document.querySelector('.btn').style.display = 'inline';
+}
 
 // Function to open modal
 function openModal() {

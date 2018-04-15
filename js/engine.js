@@ -96,7 +96,7 @@ var Engine = (function (global) {
 				enemy.get()[0] - player.get()[0] > -50 &&
 				(player.get()[1] - enemy.get()[1]) < 50 &&
 				(player.get()[1] - enemy.get()[1]) > -50) {
-					isHurt = true;
+				isHurt = true;
 			}
 		});
 		gem.update();
@@ -179,11 +179,17 @@ var Engine = (function (global) {
 		'images/stone-block.png',
 		'images/water-block.png',
 		'images/grass-block.png',
-		'images/enemy-bug.png',
+		'images/enemy-bug-red.png',
+		'images/enemy-bug-blue.png',
+		'images/enemy-bug-green.png',
 		'images/char-boy.png',
 		'images/Gem-Blue.png',
 		'images/Gem-Orange.png',
-		'images/Gem-Green.png'
+		'images/Gem-Green.png',
+		'images/char-cat-girl.png',
+		'images/char-horn-girl.png',
+		'images/char-pink-girl.png',
+		'images/char-princess-girl.png'
 	]);
 	Resources.onReady(init);
 
