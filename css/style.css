@@ -28,6 +28,11 @@ p {
     border: 0;
     font-size: 2em;
     display: none;
+    cursor: pointer;
+}
+
+#play-again , #try-again{
+    display: inline;
 }
 
 .em {
@@ -81,4 +86,8 @@ opacity: 0
 }
 
 to { opacity: 1 }
+}
+
+img.avatar {
+    cursor: pointer;
 }
